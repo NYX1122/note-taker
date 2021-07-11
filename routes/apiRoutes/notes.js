@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { v4: uuidv4 } = require('uuid');
 const path = require("path");
 const router = require("express").Router();
 
@@ -11,7 +12,7 @@ router.get("/notes", (req, res) => {
 router.post("/notes", (req, res) => {
     let notes = fs.readFileSync("db/db.json");
     notes = JSON.parse(notes);
-    req.body.id = notes.length.toString();
+    req.body.id = uuidv4();
     const newNote = req.body;
     notes.push(newNote);
 
